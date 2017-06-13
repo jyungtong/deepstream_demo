@@ -1,0 +1,9 @@
+{
+  "name": "node_deepstream",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "deepstream.io-client-js": "^2.2.0"
+  }
+}
