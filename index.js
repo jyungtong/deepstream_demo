@@ -1,6 +1,9 @@
 const readline = require('readline');
 const deepstream = require('deepstream.io-client-js');
-const client = deepstream('localhost:6020');
+const client = deepstream(`${process.env.DSIO || localhost}:6020`);
+
+const channel = 'driver/thisisdriverid';
+const subscription = 'status';
 
 let ds;
 
@@ -10,7 +13,7 @@ const r1 = readline.createInterface({
 });
 
 r1.on('line', (input) => {
-  ds.set('coords', { input: input });
+  ds.set(subscription, { input: input });
 });
 
 client.on('connectionStateChanged', (state) => {
@@ -27,8 +30,8 @@ client.login(/*{ username: 'john', password: 'doe' },*/ (success, data) => {
   else
     console.log(data);
 
-  ds = client.record.getRecord('input/channel');
-  ds.subscribe('coords', update);
+  ds = client.record.getRecord(channel);
+  ds.subscribe(subscription, update);
 });
 
 function update(a) {
